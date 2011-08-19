@@ -62,7 +62,7 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
     public function visitString($data, $type)
     {
-        $data = (string) $data;
+        $data = (string)$data;
 
         if (null === $this->result) {
             $this->result = $data;
@@ -73,7 +73,7 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
     public function visitBoolean($data, $type)
     {
-        $data = (Boolean) $data;
+        $data = (Boolean)$data;
 
         if (null === $this->result) {
             $this->result = $data;
@@ -84,7 +84,7 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
     public function visitInteger($data, $type)
     {
-        $data = (integer) $data;
+        $data = (integer)$data;
 
         if (null === $this->result) {
             $this->result = $data;
@@ -95,7 +95,7 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
     public function visitDouble($data, $type)
     {
-        $data = (double) $data;
+        $data = (double)$data;
 
         if (null === $this->result) {
             $this->result = $data;
@@ -137,7 +137,7 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
         // map
         $keyType = trim(substr($type, 6, $pos - 6));
-        $entryType = trim(substr($type, $pos+1, -1));
+        $entryType = trim(substr($type, $pos + 1, -1));
 
         $result = array();
         if (null === $this->result) {
@@ -201,7 +201,28 @@ abstract class GenericDeserializationVisitor extends AbstractDeserializationVisi
 
     public function visitPropertyUsingCustomHandler(PropertyMetadata $metadata, $object)
     {
-        // TODO
+        $name = $this->namingStrategy->translateName($metadata);
+
+        if (!isset($data[$name])) {
+            return;
+        }
+
+        if (!$metadata->type) {
+            throw new RuntimeException(sprintf('You must define a type for %s::$%s.', $metadata->reflection->getDeclaringClass()->getName(), $metadata->name));
+        }
+
+        $visited = false;
+        foreach ($this->propertyCustomHandlers as $handler) {
+            $rs = $handler->serialize($this, $data[$name], $metadata->type, $visited);
+            if ($visited) {
+                if (null !== $rs) {
+                    $metadata->reflection->setValue($this->currentObject, $rs);
+                }
+
+                return true;
+            }
+        }
+
         return false;
     }
 

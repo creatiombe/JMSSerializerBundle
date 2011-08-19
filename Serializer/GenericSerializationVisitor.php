@@ -25,10 +25,10 @@ use JMS\SerializerBundle\Serializer\Naming\PropertyNamingStrategyInterface;
 
 abstract class GenericSerializationVisitor extends AbstractSerializationVisitor
 {
-    private $navigator;
-    private $root;
-    private $dataStack;
-    private $data;
+    protected $navigator;
+    protected $root;
+    protected $dataStack;
+    protected $data;
 
     public function setNavigator(GraphNavigator $navigator)
     {
@@ -148,7 +148,28 @@ abstract class GenericSerializationVisitor extends AbstractSerializationVisitor
 
     public function visitPropertyUsingCustomHandler(PropertyMetadata $metadata, $object)
     {
-        // TODO
+        $data = $metadata->reflection->getValue($object);
+        if (null === $data) {
+            return false;
+        }
+
+        $type = gettype($data);
+        if ('object' === $type) {
+            $type = get_class($data);
+        }
+
+        $visited = false;
+        foreach ($this->propertyCustomHandlers as $handler) {
+            $rs = $handler->serialize($this, $data, $type, $visited);
+            if ($visited) {
+                $k = $this->namingStrategy->translateName($metadata);
+
+                $this->data[$k] = $rs;
+
+                return true;
+            }
+        }
+
         return false;
     }
 
