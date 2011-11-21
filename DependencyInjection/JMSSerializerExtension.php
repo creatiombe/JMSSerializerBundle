@@ -59,6 +59,8 @@ class JMSSerializerExtension extends Extension
             $container->addObjectResource($factory);
         }
 
+        $container->setAlias('jms_serializer.naming_strategy', $config['property_naming']['id']);
+
         // property naming
         $container
             ->getDefinition('jms_serializer.camel_case_naming_strategy')

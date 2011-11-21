@@ -97,7 +97,7 @@
         <!-- Naming Strategies -->
         <service id="jms_serializer.camel_case_naming_strategy" class="%jms_serializer.camel_case_naming_strategy.class%" public="false" />
         <service id="jms_serializer.serialized_name_annotation_strategy" class="%jms_serializer.serialized_name_annotation_strategy.class%" public="false">
-            <argument type="service" id="jms_serializer.default_naming_strategy" />
+            <argument type="service" id="jms_serializer.camel_case_naming_strategy" />
         </service>
         <service id="jms_serializer.cache_naming_strategy" class="%jms_serializer.cache_naming_strategy.class%" public="false" />
         <service id="jms_serializer.noop_naming_strategy" class="%jms_serializer.noop_naming_strategy.class%" public="false" />
@@ -155,6 +155,7 @@
         <service id="jms_serializer.yaml_serialization_visitor" class="%jms_serializer.yaml_serialization_visitor.class%" public="false">
             <argument type="service" id="jms_serializer.naming_strategy" />
             <argument type="collection" /><!-- Custom Handlers -->
+            <argument type="collection" /><!-- Property Custom Handlers -->
             <tag name="jms_serializer.serialization_visitor" format="yml" />
         </service>
         
