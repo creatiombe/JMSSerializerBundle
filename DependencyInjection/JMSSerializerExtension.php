@@ -63,7 +63,7 @@ class JMSSerializerExtension extends Extension
 
         // property naming
         $container
-            ->getDefinition('jms_serializer.camel_case_naming_strategy')
+            ->getDefinition('jms_serializer.camel_case_naming_strategy.default')
             ->addArgument($config['property_naming']['separator'])
             ->addArgument($config['property_naming']['lower_case'])
         ;
