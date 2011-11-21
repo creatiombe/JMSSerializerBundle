@@ -25,7 +25,6 @@ use JMS\SerializerBundle\DependencyInjection\Factory\ArrayCollectionFactory;
 use JMS\SerializerBundle\DependencyInjection\Factory\ObjectBasedFactory;
 use JMS\SerializerBundle\DependencyInjection\Factory\DoctrineProxyFactory;
 use JMS\SerializerBundle\DependencyInjection\JMSSerializerExtension;
-use JMS\SerializerBundle\DependencyInjection\Compiler\SetCustomHandlersPass;
 use JMS\SerializerBundle\DependencyInjection\Compiler\SetPropertyCustomHandlersPass;
 use JMS\SerializerBundle\DependencyInjection\Compiler\SetVisitorsPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -59,7 +58,6 @@ class JMSSerializerBundle extends Bundle
     public function build(ContainerBuilder $builder)
     {
         $builder->addCompilerPass(new SetVisitorsPass());
-        $builder->addCompilerPass(new SetCustomHandlersPass());
         $builder->addCompilerPass(new SetPropertyCustomHandlersPass());
     }
 }

@@ -54,7 +54,7 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('property_naming')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode('id')->cannotBeEmpty()->defaultValue('jms_serializer.serialized_name_annotation_strategy')->end()
+                    ->scalarNode('id')->cannotBeEmpty()->defaultValue('jms_serializer.camel_case_naming_strategy.default')->end()
                     ->scalarNode('separator')->defaultValue('_')->end()
                     ->booleanNode('lower_case')->defaultTrue()->end()
                     ->booleanNode('enable_cache')->defaultTrue()->end()

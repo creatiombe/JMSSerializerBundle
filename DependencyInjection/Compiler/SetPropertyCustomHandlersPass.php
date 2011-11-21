@@ -45,7 +45,7 @@ class SetPropertyCustomHandlersPass implements CompilerPassInterface
             ->replaceArgument(2, $serializationHandlers)
         ;
         $container
-            ->getDefinition('jms_serializer.ymal_serialization_visitor')
+            ->getDefinition('jms_serializer.yaml_serialization_visitor')
             ->replaceArgument(2, $deserializationHandlers)
         ;
         $container
