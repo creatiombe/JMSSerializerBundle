@@ -46,6 +46,7 @@ use JMS\SerializerBundle\Annotation\Since;
 use JMS\SerializerBundle\Annotation\ExclusionPolicy;
 use JMS\SerializerBundle\Annotation\Inline;
 use JMS\SerializerBundle\Annotation\ReadOnly;
+use JMS\SerializerBundle\Annotation\AllowEmpty;
 use JMS\SerializerBundle\Metadata\ClassMetadata;
 use JMS\SerializerBundle\Metadata\PropertyMetadata;
 use JMS\SerializerBundle\Metadata\VirtualPropertyMetadata;
@@ -167,6 +168,8 @@ class AnnotationDriver implements DriverInterface
                         $propertyMetadata->inline = true;
                     } else if ($annot instanceof ReadOnly) {
                         $propertyMetadata->readOnly = true;
+                    } else if ($annot instanceof AllowEmpty) {
+                        $propertyMetadata->allowEmpty = true;
                     }
                 }
 

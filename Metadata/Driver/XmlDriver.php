@@ -114,6 +114,10 @@ class XmlDriver extends AbstractFileDriver
                         $pMetadata->serializedName = (string) $serializedName;
                     }
 
+                    if (null !== $allowEmpty = $pElem->attributes()->{'allow-empty'}) {
+                        $pMetadata->allowEmpty = 'true' === strtolower($allowEmpty);
+                    }
+
                     if (null !== $type = $pElem->attributes()->type) {
                         $pMetadata->type = (string) $type;
                     } else if (isset($pElem->type)) {

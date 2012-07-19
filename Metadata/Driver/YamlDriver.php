@@ -107,6 +107,10 @@ class YamlDriver extends AbstractFileDriver
                         $pMetadata->serializedName = (string) $pConfig['serialized_name'];
                     }
 
+                    if (isset($pConfig['allow_empty'])) {
+                        $pMetadata->allowEmpty = (Boolean) $pConfig['allow_empty'];
+                    }
+
                     if (isset($pConfig['type'])) {
                         $pMetadata->type = (string) $pConfig['type'];
                     }

@@ -133,7 +133,7 @@ abstract class GenericSerializationVisitor extends AbstractSerializationVisitor
                 : $data->{$metadata->getter}());
 
         $v = $this->navigator->accept($v, null, $this);
-        if (null === $v) {
+        if (null === $v && false === $metadata->allowEmpty) {
             return;
         }
 

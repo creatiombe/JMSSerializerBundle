@@ -152,7 +152,7 @@ class XmlSerializationVisitor extends AbstractSerializationVisitor
         $v = (null === $metadata->getter ? $metadata->reflection->getValue($object)
             : $object->{$metadata->getter}());
 
-        if (null === $v) {
+        if (null === $v && false === $metadata->allowEmpty) {
             return;
         }
 
